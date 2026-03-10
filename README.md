@@ -2,6 +2,8 @@
 
 Personal portfolio website for Said Yanak — backend developer and freelancer.
 
+**Live:** [saidyanak.dev](https://saidyanak.dev)
+
 Built with Next.js 15 (App Router), TypeScript, Tailwind CSS v4, and Framer Motion.
 
 ---
