@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# saidyanak.dev
 
-## Getting Started
+Personal portfolio website for Said Yanak — backend developer and freelancer.
 
-First, run the development server:
+Built with Next.js 15 (App Router), TypeScript, Tailwind CSS v4, and Framer Motion.
+
+---
+
+## Local Development
+
+**Prerequisites:** Node.js 20+
 
 ```bash
+# Install dependencies
+npm install
+
+# Start dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## TODO: Fill in before deploying
 
-## Learn More
+Search the codebase for `TODO: Said` comments. Key ones:
 
-To learn more about Next.js, take a look at the following resources:
+- `components/Contact.tsx` — your email address (replace `todo@example.com`)
+- `components/Contact.tsx` — your LinkedIn URL
+- `components/Footer.tsx` — your LinkedIn URL
+- `components/Projects.tsx` — İlta and Sutra project descriptions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Docker Build & Deploy
 
-## Deploy on Vercel
+### Build the image
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+docker build -t saidyanak-portfolio .
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Run locally
+
+```bash
+docker run -p 3000:3000 saidyanak-portfolio
+```
+
+### Run in production (detached)
+
+```bash
+docker run -d \
+  --name portfolio \
+  --restart unless-stopped \
+  -p 3000:3000 \
+  saidyanak-portfolio
+```
+
+### Update the container
+
+```bash
+docker build -t saidyanak-portfolio . \
+  && docker stop portfolio \
+  && docker rm portfolio \
+  && docker run -d \
+       --name portfolio \
+       --restart unless-stopped \
+       -p 3000:3000 \
+       saidyanak-portfolio
+```
+
+---
+
+## Nginx Configuration
+
+The `nginx.conf` file in this repo is a reference snippet. To set it up on your VPS:
+
+1. Copy the server blocks into `/etc/nginx/sites-available/saidyanak.dev`
+
+2. Enable the site:
+
+   ```bash
+   ln -s /etc/nginx/sites-available/saidyanak.dev /etc/nginx/sites-enabled/
+   ```
+
+3. Get SSL certificates (if not already):
+
+   ```bash
+   certbot --nginx -d saidyanak.dev -d www.saidyanak.dev
+   ```
+
+4. Test and reload Nginx:
+
+   ```bash
+   nginx -t && systemctl reload nginx
+   ```
+
+The Next.js container runs on port `3000` internally. Nginx proxies public traffic (80/443) to it.
+
+---
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router, standalone output)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Animations:** Framer Motion
+- **Theming:** next-themes (dark default)
+- **Deployment:** Docker + Nginx on personal VPS
