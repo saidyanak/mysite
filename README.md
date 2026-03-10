@@ -2,7 +2,7 @@
 
 Personal portfolio website for Said Yanak — backend developer and freelancer.
 
-**Live:** [saidyanak.dev](https://saidyanak.dev)
+[![Live](https://img.shields.io/badge/Live-saidyanak.dev-3b82f6?style=flat-square&logo=vercel&logoColor=white)](https://saidyanak.dev)
 
 Built with Next.js 15 (App Router), TypeScript, Tailwind CSS v4, and Framer Motion.
 
