@@ -32,41 +32,9 @@ npm run dev
 ## Docker
 
 ```bash
-# Build (cross-platform for AMD64 server)
-docker build --platform linux/amd64 -t saidyanak-portfolio .
-
-# Run
-docker run -d \
-  --name portfolio \
-  --restart unless-stopped \
-  --network wordpress_default \
-  -p 8080:8080 \
-  saidyanak-portfolio
-
-# Update
-docker build --platform linux/amd64 -t saidyanak-portfolio . \
-  && docker rm -f portfolio \
-  && docker run -d \
-       --name portfolio \
-       --restart unless-stopped \
-       --network wordpress_default \
-       -p 8080:8080 \
-       saidyanak-portfolio
+docker build -t saidyanak-portfolio .
+docker run -d --name portfolio -p 3000:3000 saidyanak-portfolio
 ```
-
----
-
-## Nginx Proxy Manager
-
-Proxied via NPM running on the same server:
-
-| Field | Value |
-| --- | --- |
-| Domain | `saidyanak.dev`, `www.saidyanak.dev` |
-| Forward Host | `portfolio` (container name) |
-| Forward Port | `8080` |
-| Websocket Support | ✓ |
-| SSL | Let's Encrypt, Force SSL |
 
 ---
 
