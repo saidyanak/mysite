@@ -60,6 +60,7 @@ export default function Navbar() {
             <>
               <a
                 href="/cv-tr.pdf"
+                download="Said_Yanak_CV_TR.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden text-xs text-[var(--muted-fg)] transition-colors duration-200 hover:text-white md:inline-flex"
@@ -68,6 +69,7 @@ export default function Navbar() {
               </a>
               <a
                 href="/cv-en.pdf"
+                download="Said_Yanak_CV_EN.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden text-xs text-[var(--muted-fg)] transition-colors duration-200 hover:text-white md:inline-flex"
