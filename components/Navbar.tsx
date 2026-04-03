@@ -2,19 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Stack", href: "#stack" },
-  { label: "Projects", href: "#projects" },
-  { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
+
+  const navLinks = [
+    { label: t("nav.about"), href: "#about" },
+    { label: t("nav.stack"), href: "#stack" },
+    { label: t("nav.projects"), href: "#projects" },
+    { label: t("nav.services"), href: "#services" },
+    { label: t("nav.contact"), href: "#contact" },
+  ];
 
   useEffect(() => {
     setMounted(true);
@@ -53,6 +55,40 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
+          {/* CV Links */}
+          {mounted && (
+            <>
+              <a
+                href="/cv-tr.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden text-xs text-[var(--muted-fg)] transition-colors duration-200 hover:text-white md:inline-flex"
+              >
+                {t("nav.cvTR")}
+              </a>
+              <a
+                href="/cv-en.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden text-xs text-[var(--muted-fg)] transition-colors duration-200 hover:text-white md:inline-flex"
+              >
+                {t("nav.cvEN")}
+              </a>
+            </>
+          )}
+
+          {/* Language Toggle */}
+          {mounted && (
+            <button
+              onClick={() => setLanguage(language === "tr" ? "en" : "tr")}
+              className="rounded-md px-2 py-1 text-xs font-medium text-[var(--muted-fg)] transition-colors hover:bg-[var(--muted)] hover:text-white"
+              aria-label="Toggle language"
+            >
+              {language === "tr" ? "EN" : "TR"}
+            </button>
+          )}
+
+          {/* Theme Toggle */}
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -78,11 +114,12 @@ export default function Navbar() {
               )}
             </button>
           )}
+
           <a
             href="#contact"
             className="hidden rounded-md bg-[#3b82f6] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#2563eb] md:inline-flex"
           >
-            Hire Me
+            {t("nav.hireMe")}
           </a>
         </div>
       </nav>

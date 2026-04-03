@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { Variants } from "framer-motion";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 function GridBackground() {
   return (
@@ -73,6 +74,8 @@ const fadeUp: Variants = {
 };
 
 export default function Hero() {
+  const { t } = useLanguage();
+  
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
       <GridBackground />
@@ -96,7 +99,7 @@ export default function Hero() {
           className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--card)] px-3 py-1.5 text-xs text-[var(--muted-fg)]"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          Available for freelance projects
+          {t("hero.available")}
         </motion.div>
 
         <motion.h1
@@ -104,9 +107,9 @@ export default function Hero() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-4 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+          className="mb-4 text-5xl font-bold tracking-tight text-[var(--foreground)] sm:text-6xl lg:text-7xl"
         >
-          Said Yanak
+          {t("hero.name")}
         </motion.h1>
 
         <motion.p
@@ -116,7 +119,7 @@ export default function Hero() {
           animate="visible"
           className="mb-4 text-xl font-medium text-[#3b82f6] sm:text-2xl"
         >
-          Backend Developer & Freelancer
+          {t("hero.title")}
         </motion.p>
 
         <motion.p
@@ -126,8 +129,7 @@ export default function Hero() {
           animate="visible"
           className="mb-10 mx-auto max-w-xl text-[var(--muted-fg)] leading-relaxed"
         >
-          I build backends, ship full-stack products, and host them on my own
-          infrastructure. Graduate of 42 Kocaeli.
+          {t("hero.description")}
         </motion.p>
 
         <motion.div
@@ -138,14 +140,14 @@ export default function Hero() {
           className="flex flex-wrap items-center justify-center gap-3"
         >
           <MagneticButton href="#projects" variant="primary">
-            View Projects
+            {t("hero.viewProjects")}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"/>
               <polyline points="12 5 19 12 12 19"/>
             </svg>
           </MagneticButton>
           <MagneticButton href="#contact" variant="secondary">
-            Hire Me
+            {t("hero.hireMe")}
           </MagneticButton>
         </motion.div>
       </div>

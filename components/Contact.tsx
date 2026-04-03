@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { type Variants, motion, useInView } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -48,6 +49,7 @@ export default function Contact() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const { t } = useLanguage();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -71,16 +73,16 @@ export default function Contact() {
           animate={inView ? "visible" : "hidden"}
           className="mb-2 font-mono text-sm text-[#3b82f6]"
         >
-          05. contact
+          {t("contact.sectionLabel")}
         </motion.p>
         <motion.h2
           custom={1}
           variants={fadeUp}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="mb-4 text-4xl font-bold text-white sm:text-5xl"
+          className="mb-4 text-4xl font-bold text-[var(--foreground)] sm:text-5xl"
         >
-          Let&apos;s Work Together
+          {t("contact.title")}
         </motion.h2>
         <motion.p
           custom={2}
@@ -89,8 +91,7 @@ export default function Contact() {
           animate={inView ? "visible" : "hidden"}
           className="mb-16 max-w-lg text-[#737373]"
         >
-          Have a project in mind? I&apos;m available for freelance engagements. Send me a
-          message and I&apos;ll get back to you within 24 hours.
+          {t("contact.description")}
         </motion.p>
 
         <div className="grid gap-12 md:grid-cols-2">
@@ -105,41 +106,41 @@ export default function Contact() {
           >
             <div>
               <label htmlFor="name" className="mb-1.5 block text-xs font-medium text-[#737373]">
-                Name
+                {t("contact.form.name")}
               </label>
               <input
                 id="name"
                 name="name"
                 type="text"
                 required
-                placeholder="Your name"
-                className="w-full rounded-md border border-[var(--border)] bg-[var(--card)] px-4 py-3 text-sm text-white placeholder-[#404040] outline-none transition-colors focus:border-[#3b82f6]"
+                placeholder={t("contact.form.namePlaceholder")}
+                className="w-full rounded-md border border-[var(--border)] bg-[var(--card)] px-4 py-3 text-sm text-[var(--foreground)] placeholder-[#404040] outline-none transition-colors focus:border-[#3b82f6]"
               />
             </div>
             <div>
               <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-[#737373]">
-                Email
+                {t("contact.form.email")}
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
                 required
-                placeholder="you@example.com"
-                className="w-full rounded-md border border-[var(--border)] bg-[var(--card)] px-4 py-3 text-sm text-white placeholder-[#404040] outline-none transition-colors focus:border-[#3b82f6]"
+                placeholder={t("contact.form.emailPlaceholder")}
+                className="w-full rounded-md border border-[var(--border)] bg-[var(--card)] px-4 py-3 text-sm text-[var(--foreground)] placeholder-[#404040] outline-none transition-colors focus:border-[#3b82f6]"
               />
             </div>
             <div>
               <label htmlFor="message" className="mb-1.5 block text-xs font-medium text-[#737373]">
-                Message
+                {t("contact.form.message")}
               </label>
               <textarea
                 id="message"
                 name="message"
                 required
                 rows={5}
-                placeholder="Tell me about your project..."
-                className="w-full resize-none rounded-md border border-[var(--border)] bg-[var(--card)] px-4 py-3 text-sm text-white placeholder-[#404040] outline-none transition-colors focus:border-[#3b82f6]"
+                placeholder={t("contact.form.messagePlaceholder")}
+                className="w-full resize-none rounded-md border border-[var(--border)] bg-[var(--card)] px-4 py-3 text-sm text-[var(--foreground)] placeholder-[#404040] outline-none transition-colors focus:border-[#3b82f6]"
               />
             </div>
             <button
@@ -147,7 +148,7 @@ export default function Contact() {
               disabled={sent}
               className="w-full rounded-md bg-[#3b82f6] py-3 text-sm font-medium text-white transition-colors hover:bg-[#2563eb] disabled:opacity-60"
             >
-              {sent ? "Message sent — check your mail client" : "Send Message"}
+              {sent ? t("contact.form.sent") : t("contact.form.send")}
             </button>
           </motion.form>
 
@@ -160,7 +161,7 @@ export default function Contact() {
             className="space-y-4"
           >
             <p className="text-sm text-[#737373] mb-6">
-              Or reach out directly through any of these channels:
+              {t("contact.or")}
             </p>
             {socialLinks.map((link) => (
               <a
@@ -168,7 +169,7 @@ export default function Contact() {
                 href={link.href}
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="flex items-center gap-4 rounded-lg border border-[var(--border)] bg-[var(--card)] p-4 text-[var(--muted-fg)] transition-all hover:border-[#3b82f6]/30 hover:text-white"
+                className="flex items-center gap-4 rounded-lg border border-[var(--border)] bg-[var(--card)] p-4 text-[var(--muted-fg)] transition-all hover:border-[#3b82f6]/30 hover:text-[var(--foreground)]"
               >
                 <span className="text-[#3b82f6]">{link.icon}</span>
                 <span className="text-sm font-medium">{link.label}</span>
